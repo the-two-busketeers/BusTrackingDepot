@@ -2,13 +2,13 @@
 from flask import *
 import os
 import json
-import modules.readingbusesapi as busWrapper
+import readingbusesapi as busWrapper
 
 app = Flask(__name__)
 
 def GetBusJson():
     dict = []
-    for files in os.listdir("/buses"):
+    for files in os.listdir( os.getcwd() + /"/buses"):
         if files.endswith(".json"):
             jsonFile = open(files)
             jsonData = json.load(jsonFile)
