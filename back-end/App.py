@@ -20,8 +20,7 @@ def GetBusJson():
 def init():
 
     return GetBusJson()
-print(__name__)
+
 if __name__ == "__main__":
-    # Making the app run on local host
     app.debug = True
     app.run(host= "0.0.0.0", port = 5000)
