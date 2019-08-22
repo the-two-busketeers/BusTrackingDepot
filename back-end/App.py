@@ -10,10 +10,10 @@ def GetBusJson():
     dict = []
     for files in os.listdir( os.getcwd() + "/buses"):
         if files.endswith(".json"):
-            jsonFile = open(files)
+            jsonFile = open(os.getcwd() + "/buses" + files)
             jsonData = json.load(jsonFile)
             dict.Append(jsonData)
-    return dict
+    return json.dumps(dict)
 
 
 @app.route("/init", methods=["GET"])
