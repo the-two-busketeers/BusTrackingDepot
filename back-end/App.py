@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 def GetBusJson():
     dict = []
-    for files in os.listdir( os.getcwd() + /"/buses"):
+    for files in os.listdir( os.getcwd() + "/buses"):
         if files.endswith(".json"):
             jsonFile = open(files)
             jsonData = json.load(jsonFile)
