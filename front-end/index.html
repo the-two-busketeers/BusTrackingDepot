@@ -1,47 +1,79 @@
 <html>
 
     <head>
-    
+
         <style>
-        
+
             body {
                 background-color: #FFFFFF;
             }
             
-            .text-input {
-                border-radius: 5px;
+            #title {
+                text-align: center;
             }
-        
+            
+            #search-bar {
+                position: relative;
+                left: 50%;
+                transform: translate(-50%, 0%);
+                
+                
+            }
+            
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+                grid-gap: 1em;
+                height: 60%;
+            }
+            
+            .grid-element {
+                background-color: gray;
+                border: 1px black solid;
+                padding: 1px;
+                text-align: center;
+            }
+
         </style>
-    
+
     </head>
-    
+
     <body>
         
-        <input type="text" class="text-input">
+        <div id="title">TITLE</div>
         
-        <table id="main-table">
+        <input type="text" id="search-bar">
+
+        <div class="grid-container">
         
-            <tr>
+            <div class="grid-element">
             
-                <th>In Depo</th>
-                <th>Currently Running</th>
-                <th>Lost track</th>
+                Vehicle Number
             
-            </tr>
+            </div>
+            
+            <div class="grid-element">
+            
+                Vehicle Number
+            
+            </div>
+            
+            <div class="grid-element">
+            
+                
+            
+            </div>
+            
         
-        </table>
-    
+        </div>
+
         <script>
-        
-            fetch("/init", {method: "GET"}).then(response => response.json()).then(data => {
-                for (let object of data.notRunning) {
-                    document.getElementById("main-table").innerHTML += "<tr><td>" + object.isRunning + "</td><td>" + object.service + "</td><td>" + object.vehicle + "</td></tr>";
-                }
-            });
-        
+
+            
+
         </script>
-    
+
     </body>
 
 </html>
