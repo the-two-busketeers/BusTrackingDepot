@@ -4,17 +4,41 @@
     
         <style>
         
+            body {
+                background-color: #FFFFFF;
+            }
             
+            .text-input {
+                border-radius: 5px;
+            }
         
         </style>
     
     </head>
     
     <body>
+        
+        <input type="text" class="text-input">
+        
+        <table id="main-table">
+        
+            <tr>
+            
+                <th>In Depo</th>
+                <th>Currently Running</th>
+                <th>Lost track</th>
+            
+            </tr>
+        
+        </table>
     
         <script>
         
-            
+            fetch("/init", {method: "GET"}).then(response => response.json()).then(data => {
+                for (let object of data.notRunning) {
+                    document.getElementById("main-table").innerHTML += "<tr><td>" + object.isRunning + "</td><td>" + object.service + "</td><td>" + object.vehicle + "</td></tr>";
+                }
+            });
         
         </script>
     
