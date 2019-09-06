@@ -36,6 +36,8 @@ class BusUpdater(object):
                     vehicle = jsonData["vehicle"]
                     if vehicle in buses:
                         busData = buses[vehicle]
+                        if busData == None:
+                            continue
                         jsonData["service"] = busData["service"]
                         jsonData["observed"] = busData["observed"]
                         jsonData["isRunning"] = "1"
