@@ -47,22 +47,13 @@
 
         <div class="grid-container">
 
-            <div class="grid-element">
-
-                Vehicle Number
-
+            <div class="grid-element" id = "running">
             </div>
 
-            <div class="grid-element">
-
-                Vehicle Number
-
+            <div class="grid-element" id = "notRunning">
             </div>
 
-            <div class="grid-element">
-
-
-
+            <div class="grid-element" id = "gone">
             </div>
 
 
@@ -72,9 +63,10 @@
 
         <script>
         var busesJson;
-        function syncBusData() {
+        function syncBusData(bool) {
             // Create the stuff and store them in an element
             // meaning we can just update the thing, without us needing to uncollaps
+
             $.ajax({
                 url: "http://localhost:5000/init",
                 method: "GET",
@@ -88,13 +80,24 @@
                         a = "";
                         busesJson = json;
                         console.log(json);
+                        // order the list numerically,
+                        // Do loop through each section of the json
+
+                        if (bool === true) {
+                            // remove loading circle from the running collum
+                            // insert the stuff into the sections and then update the variables
+                        }
+                        else {
+                            // do a loop through the stuff and update the data?
+                                // appendChild to the correct div that we want
+                        }
                     },
                     error: function (res) { console.log(res); }
                 })
         }
 
         setInterval(syncBusData, 1000 * 30);
-        syncBusData();
+        syncBusData(true);
     </script>
 
     </body>
