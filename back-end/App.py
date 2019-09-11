@@ -85,12 +85,14 @@ def GetBusJson():
                 dict["running"].append(jsonData)
             else:
                 dict["notRunning"].append(jsonData)
-    return json.dumps(dict)
+    return dict
 
 @app.route("/init", methods=["GET"])
 def init():
-
-    return GetBusJson()
+    dict  = GetBusJson()
+    response = jsonify(dict)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == "__main__":
     app.debug = True

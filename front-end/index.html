@@ -1,9 +1,6 @@
 <html>
-
     <head>
-
         <style>
-
             body {
                 background-color: #FFFFFF;
             }
@@ -93,15 +90,13 @@
                 overflow: hidden;
                 transition: max-height 0.2s ease-out;
             }
-
-
         </style>
 
     </head>
 
     <body>
 
-        <div id="title">TITLE</div>
+        <div id="title">Reading Buses Depot Tracker</div>
 
         <input type="text" id="search-bar">
 
@@ -111,51 +106,38 @@
             </div>
 
             <div class="grid-element" id = "notRunning">
-                <div style="padding-top: 35%;" id ="removeDiv">
-                    <img class = "spin" src="images/loading.png" width="100" height="100" alt="Logo">
+                <div style="padding-top: 15%;" id ="removeDiv">
+                    <img class = "spin" src="images/loading.png" width="300" height="300" alt="Logo">
                 </div>
             </div>
 
             <div class="grid-element" id = "oldService">
             </div>
-
-
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
         <script>
-        var busesJson;
+        var busJson = {};
         function syncBusData(bool) {
-            // Create the stuff and store them in an element
-            // meaning we can just update the thing, without us needing to uncollaps
-
             $.ajax({
-                url: "http://localhost:5000/init",
-                method: "GET",
-                jsonp: true,
+                url: "http://192.168.152.140:5000/init",
+                type: "GET",
                 dataType: "json",
                 crossDomain: true,
-                headers: {"Access-Control-Allow-Origin" : "*"},
                 success: function (json) {
-                        console.log("Success");
-                        // <li><a href="Jetblack.html">Jetblack - Newbury to Reading</a></li>
-                        a = "";
                         busesJson = json;
                         console.log(json);
                         // Do loop through each section of the json
-
                         if (bool === true) {
                             // remove loading circle from the running collum
                             // insert the stuff into the sections and then update the variables
-
                             document.getElementById("removeDiv").innerHTML = "";
 
                             for (var key in json) {
                                 var element = document.getElementById(key)
                                 var dict = json[key]
                                 for(let i = 0; i < dict.length; i++){
-
                                     var bus = dict[i]
                                     busJson[bus.vehicle] = bus;
                                     busJson[bus.vehicle].element = CreateBusAccordion(bus, element)
@@ -168,7 +150,8 @@
                         }
                     },
                     error: function (res) { console.log(res); }
-                })
+                }
+            )
         }
 
         function CreateBusAccordion(json, element) {
@@ -201,5 +184,4 @@
     </script>
 
     </body>
-
 </html>
