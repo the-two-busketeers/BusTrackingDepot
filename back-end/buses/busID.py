@@ -9,9 +9,9 @@ with open("bus_fleetID_list.txt", "r") as file:
 for ID in fleetIDs:
 	dictionary = {
 		"observed": "2019-08-22 18:46:13",
-		"vehicle": "1104",
+		"vehicle": str(ID),
 		"isRunning": "0",
-		"service": str(ID),
+		"service": "asd",
 		"returnTime": "2019-08-22 19:46:13"
 	}
 	file = open(str(ID) + ".json", "w")

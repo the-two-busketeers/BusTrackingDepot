@@ -132,7 +132,9 @@
                         if (bool === true) {
                             // remove loading circle from the running collum
                             // insert the stuff into the sections and then update the variables
-                            document.getElementById("removeDiv").innerHTML = "";
+                            var image = document.getElementById("removeDiv")
+
+                            image.parentNode.removeChild(image);
 
                             for (var key in json) {
                                 var element = document.getElementById(key)
