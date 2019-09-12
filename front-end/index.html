@@ -10,9 +10,10 @@
             }
 
             #search-bar {
-                position: relative;
-                left: 50%;
-                transform: translate(-50%, 0%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 40px;
             }
 
             .grid-container {
@@ -97,9 +98,13 @@
     <body>
 
         <div id="title">Reading Buses Depot Tracker</div>
-
-        <input type="text" id="search-bar">
-
+        <div id= "search-bar">
+            <input type="text" id="search">
+            <select id = "select-box">
+                <option value="vehicle">Vehicle ID</option>
+                <option value="service">Service</option>
+            </select>
+        </div>
         <div class="grid-container">
 
             <div class="grid-element" id = "running">
@@ -121,7 +126,7 @@
         var busJson = {};
         function syncBusData(bool) {
             $.ajax({
-                url: "http://192.168.152.140:5000/init",
+                url: "http://192.168.152.141:5000/init",
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -181,8 +186,35 @@
             return mainDiv;
         }
 
+        function busSearch(match, key) {
+            for (var vehicle in busJson) {
+                var bus = busJson[vehicle]
+                if (match == "") {
+                    bus.element.style.display = "";
+                    continue;
+                }
+                if (bus[key].includes(match)) {
+                    bus.element.style.display = "";
+                }
+                else {
+                    console.log(bus);
+                    bus.element.style.display = "none";
+                }
+            }
+        }
+
         setInterval(syncBusData, 1000 * 30);
         syncBusData(true);
+
+        // add selecting from the service
+        // searching in the search box
+        //includes(substring))
+        var search = document.getElementById("search")
+        var searchBox = document.getElementById("select-box")
+        search.addEventListener("keyup", function(e) {
+            busSearch(search.value, searchBox.options[searchBox.selectedIndex].value);
+        })
+
     </script>
 
     </body>
