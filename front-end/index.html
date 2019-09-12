@@ -132,7 +132,6 @@
                 crossDomain: true,
                 success: function (json) {
                         busesJson = json;
-                        console.log(json);
                         // Do loop through each section of the json
                         if (bool === true) {
                             // remove loading circle from the running collum
@@ -197,7 +196,6 @@
                     bus.element.style.display = "";
                 }
                 else {
-                    console.log(bus);
                     bus.element.style.display = "none";
                 }
             }
