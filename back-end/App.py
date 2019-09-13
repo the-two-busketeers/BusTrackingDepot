@@ -87,9 +87,10 @@ def GetBusJson():
             if jsonData["isRunning"] == "1":
                 dict["running"].append(jsonData)
             else:
-                # Do a check to see if the observed date is over a month old
-                # if it is move it to the oldService json
-                dict["notRunning"].append(jsonData)
+                if (time - datetime.datetime.fromisoformat(jsonData["observed"])).days > 30:
+                    dict["oldService"].append(jsonData)
+                else:
+                    dict["notRunning"].append(jsonData)
     return dict
 
 @app.route("/init", methods=["GET"])
