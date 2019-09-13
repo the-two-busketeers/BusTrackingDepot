@@ -2,7 +2,13 @@
     <head>
         <style>
             body {
-                background-color: #FFFFFF;
+                background-image: url("images/background.jpg");
+                background-repeat: no-repeat;
+                /*background-blend-mode: overlay;*/
+                position: -webkit-sticky; /* Safari */
+                position: sticky;
+                top: 0;
+                background-color: #000000;
             }
 
             #title {
@@ -57,7 +63,7 @@
 
             .accordion {
                 background-color: #eee;
-                color: #444;
+                color: #FFFFFF;
                 cursor: pointer;
                 padding: 18px;
                 width: 100%;
@@ -68,8 +74,8 @@
                 transition: 0.4s;
             }
 
-            .active, .accordion:hover {
-                background-color: #ccc;
+            .accordion:hover {
+                background-color: #ccc !important;
             }
 
             .accordion:after {
@@ -92,6 +98,7 @@
                 transition: max-height 0.2s ease-out;
             }
         </style>
+        <link rel = "stylesheet" type = "text/css" href = "busColor.css" />
 
     </head>
 
@@ -108,62 +115,53 @@
         <div class="grid-container">
 
             <div class="grid-element" id = "running">
+                <h1>Bus is not in Depot</h1>
             </div>
 
             <div class="grid-element" id = "notRunning">
+                <h1>Bus is in the Depot</h1>
                 <div style="padding-top: 15%;" id ="removeDiv">
                     <img class = "spin" src="images/loading.png" width="300" height="300" alt="Logo">
                 </div>
             </div>
 
             <div class="grid-element" id = "oldService">
+                <h1>We have lost track of this Bus</h1>
             </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+        <script src="colors.js"></script>
         <script>
-        var busJson = {};
+        const pSBC=(p,c0,c1,l)=>{
+            let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
+            if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
+            if(!this.pSBCr)this.pSBCr=(d)=>{
+                let n=d.length,x={};
+                if(n>9){
+                    [r,g,b,a]=d=d.split(","),n=d.length;
+                    if(n<3||n>4)return null;
+                    x.r=i(r[3]=="a"?r.slice(5):r.slice(4)),x.g=i(g),x.b=i(b),x.a=a?parseFloat(a):-1
+                }else{
+                    if(n==8||n==6||n<4)return null;
+                    if(n<6)d="#"+d[1]+d[1]+d[2]+d[2]+d[3]+d[3]+(n>4?d[4]+d[4]:"");
+                    d=i(d.slice(1),16);
+                    if(n==9||n==5)x.r=d>>24&255,x.g=d>>16&255,x.b=d>>8&255,x.a=m((d&255)/0.255)/1000;
+                    else x.r=d>>16,x.g=d>>8&255,x.b=d&255,x.a=-1
+                }return x};
+            h=c0.length>9,h=a?c1.length>9?true:c1=="c"?!h:false:h,f=pSBCr(c0),P=p<0,t=c1&&c1!="c"?pSBCr(c1):P?{r:0,g:0,b:0,a:-1}:{r:255,g:255,b:255,a:-1},p=P?p*-1:p,P=1-p;
+            if(!f||!t)return null;
+            if(l)r=m(P*f.r+p*t.r),g=m(P*f.g+p*t.g),b=m(P*f.b+p*t.b);
+            else r=m((P*f.r**2+p*t.r**2)**0.5),g=m((P*f.g**2+p*t.g**2)**0.5),b=m((P*f.b**2+p*t.b**2)**0.5);
+            a=f.a,t=t.a,f=a>=0||t>=0,a=f?a<0?t:t<0?a:a*P+t*p:0;
+            if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
+            else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
+        }
 
-        var busColors = {
-            /* rgb( 13.004999999999999 , 13.004999999999999 , 13.004999999999999 )
-            rgb( 255 , 0 , 0 )
-            rgb( 255 , 133.875 , 0 )
-            rgb( 255 , 192.01500000000001 , 0 )
-            rgb( 255 , 134.895 , 0 )
-            rgb( 166.005 , 166.005 , 166.005 )
-rgb( 255 , 0 , 255 )
-rgb( 111.94500000000001 , 47.94 , 159.885 )
-rgb( 12.0105 , 121.89 , 241.99499999999998 )
-rgb( 159.885 , 92.05499999999999 , 0 )
-rgb( 204.0 , 153.0 , 0 )
-rgb( 234.09 , 0 , 234.09 )
-rgb( 41.055 , 226.95000000000002 , 27.029999999999998 )
-rgb( 0 , 51.0 , 141.01500000000001 )
-rgb( 91.035 , 0.9995999999999999 , 29.07 )
-rgb( 0 , 102.0 , 0 )
-rgb( 146.11499999999998 , 208.07999999999998 , 80.07000000000001 )
-rgb( 0 , 196.095 , 79.05 )
-rgb( 128.01 , 128.01 , 128.01 )
-rgb( 230.01000000000002 , 0 , 230.01000000000002 )
-rgb( 102.0 , 0 , 102.0 )
-rgb( 173.91000000000003 , 167.025 , 159.12 )
-rgb( 217.005 , 217.005 , 217.005 )
-rgb( 0 , 218.025 , 98.94 )
-rgb( 192.01500000000001 , 0 , 0 )
-rgb( 0 , 0 , 0 )
-rgb( 255 , 255 , 255 )
-rgb( 0.9995999999999999 , 107.1 , 79.05 )
-rgb( 248.11499999999998 , 220.065 , 0 )
-rgb( 0 , 31.875 , 95.88 )
-rgb( 79.05 , 75.99 , 82.11 )*/
-        };
-
-
-
+        var busJson = {}
         function syncBusData(bool) {
             $.ajax({
-                url: "http://192.168.152.141:5000/init",
+                url: "http://192.168.152.145:5000/init",
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -190,6 +188,25 @@ rgb( 79.05 , 75.99 , 82.11 )*/
                         else {
                             // do a loop through the stuff and update the data?
                                 // appendChild to the correct div that we want
+                                for (var key in json) {
+                                    var element = document.getElementById(key)
+                                    var dict = json[key]
+                                    for(let i = 0; i < dict.length; i++){
+                                        var bus = dict[i]
+                                        if (bus.vehicle in busJson) {
+                                            var ele = busJson[bus.vehicle].element
+                                            busJson[bus.vehicle] = bus;
+                                            busJson[bus.vehicle].element = ele
+                                            UpdateBusAccordion(bus, element)
+                                        }
+                                        else {
+                                            busJson[bus.vehicle] = bus;
+
+                                            busJson[bus.vehicle].element = CreateBusAccordion(busJson, element)
+                                        }
+                                    }
+                                }
+
                         }
                     },
                     error: function (res) { console.log(res); }
@@ -197,14 +214,38 @@ rgb( 79.05 , 75.99 , 82.11 )*/
             )
         }
 
+        function SetBusData(acc, panel, json) {
+
+            var service = "noService"
+
+            if (json.service in busColors) {
+                service = json.service
+            }
+            else {
+                if (json.lastService && json.lastService in busColors) {
+                    service = json.lastService
+                }
+            }
+            acc.innerHTML = json.vehicle;
+            acc.style.backgroundImage = "linear-gradient(90deg," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + pSBC ( -0.4, busColors[service] ) + ")"
+            panel.innerHTML = "Service: " + json.service + "<br>";
+        }
+
+        function UpdateBusAccordion(busD, par) {
+            console.log(busD)
+            var acc = busD.element.children[0]
+            var panel = busD.element.children[1]
+            SetBusData(acc, panel, busD);
+            par.appendChild(busD.element);
+        }
+
         function CreateBusAccordion(json, element) {
             var mainDiv = document.createElement("div");
             element.appendChild(mainDiv);
             var acc = document.createElement("button");
-            acc.innerHTML = json.vehicle;
             var panel = document.createElement("div");
 
-            panel.innerHTML = "Wow";
+            SetBusData(acc, panel, json);
 
             panel.classList.add("panel");
             acc.classList.add("accordion");
