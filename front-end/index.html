@@ -228,7 +228,7 @@
             }
             acc.innerHTML = json.vehicle;
             acc.style.backgroundImage = "linear-gradient(90deg," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + pSBC ( -0.4, busColors[service] ) + ")"
-            panel.innerHTML = "Service: " + json.service + "<br>";
+            panel.innerHTML = "Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
         }
 
         function UpdateBusAccordion(busD, par) {

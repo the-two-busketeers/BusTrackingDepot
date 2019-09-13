@@ -39,7 +39,7 @@ class BusUpdater(object):
                         if busData == None:
                             continue
                         if busData["service"] == "":
-                            if busData["service"] != "":
+                            if jsonData["service"] != "":
                                 jsonData["lastService"] = jsonData["service"]
                         jsonData["service"] = busData["service"]
                         jsonData["observed"] = busData["observed"]
