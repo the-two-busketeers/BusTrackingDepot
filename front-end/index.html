@@ -178,7 +178,7 @@
                     bus.element.style.display = "";
                     continue;
                 }
-                if ( key in bus && bus[key].includes(match)) {
+                if ( key in bus && (bus[key].includes(match.toUpperCase()) || bus[key].includes(match.toLowerCase()))) {
                     bus.element.style.display = "";
                 }
                 else {
