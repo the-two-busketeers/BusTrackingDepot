@@ -30,19 +30,29 @@ body {
 }
 
 .grid-element {
-    background-color: gray;
-    /*border: 1px black solid;*/
     padding: 1px;
     text-align: center;
-    height: 50%;
+}
+
+.grid-element #header {
+    color: black;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    border: 1px black solid;
+}
+
+.grid-element #header::after {
+    content: none;
 }
 
 .buslist {
     background-color: gray;
-    /*border: 1px black solid;*/
+    border: 1px black solid;
+    border-top: none;
     text-align: center;
     overflow-y: auto;
-    height: 13%;
+    height: 70vh;
 }
 #sticky {
     position: -webkit-sticky; /* Safari */
@@ -51,15 +61,6 @@ body {
     text-align: center;
     background-color: green;
 }
-/*h1 {
-    position: -webkit-sticky; /* Safari
-    position: fixed;
-    text-align: center;
-}*/
-
-/*.grid-element h1 {*/
-/*    position: fixed;*/
-/*}*/
 
 .spin {
     -webkit-animation-name: spin;
