@@ -6,6 +6,7 @@ body {
     position: sticky;
     top: 0;
     background-color: #000000;
+    overflow-y: hidden;
 }
 
 #title {
@@ -24,7 +25,8 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 1em;
-    height: 75%;
+    height: 50%;
+    max-height: 50%;
 }
 
 .grid-element {
@@ -32,9 +34,28 @@ body {
     /*border: 1px black solid;*/
     padding: 1px;
     text-align: center;
-    overflow-y: auto;
-    /*max-height: 120%;*/
+    height: 50%;
 }
+
+.buslist {
+    background-color: gray;
+    /*border: 1px black solid;*/
+    text-align: center;
+    overflow-y: auto;
+    height: 13%;
+}
+#sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    text-align: center;
+    background-color: green;
+}
+/*h1 {
+    position: -webkit-sticky; /* Safari
+    position: fixed;
+    text-align: center;
+}*/
 
 /*.grid-element h1 {*/
 /*    position: fixed;*/

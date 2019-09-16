@@ -12,6 +12,7 @@
             <select id = "select-box">
                 <option value="vehicle">Vehicle ID</option>
                 <option value="service">Service</option>
+                <option value="lastService">Last Service</option>
             </select>
         </div>
         <div id ="search-bar">
@@ -20,20 +21,27 @@
             <button onclick="busSort('numerical')">Numerical</button>
         </div>
         <div class="grid-container">
-
-            <div class="grid-element" id = "running">
+            <div class="grid-element">
                 <h1>Bus is not in Depot</h1>
-            </div>
 
-            <div class="grid-element" id = "notRunning">
+                <div class ="buslist" id = "running">
+
+                </div>
+            </div>
+            <div class="grid-element">
                 <h1>Bus is in the Depot</h1>
                 <div style="padding-top: 15%;" id ="removeDiv">
                     <img class = "spin" src="images/loading.png" width="300" height="300" alt="Logo">
                 </div>
-            </div>
+                <div class ="buslist" id ="notRunning">
 
-            <div class="grid-element" id = "oldService">
+                </div>
+            </div>
+            <div class="grid-element">
                 <h1>We have lost track of this Bus</h1>
+                <div class ="buslist" id = "oldService">
+
+                </div>
             </div>
         </div>
 
@@ -103,7 +111,6 @@
                                         }
                                         else {
                                             busJson[bus.vehicle] = bus;
-
                                             busJson[bus.vehicle].element = CreateBusAccordion(busJson, element)
                                         }
                                     }
@@ -171,7 +178,7 @@
                     bus.element.style.display = "";
                     continue;
                 }
-                if (bus[key].includes(match)) {
+                if ( key in bus && bus[key].includes(match)) {
                     bus.element.style.display = "";
                 }
                 else {
@@ -180,8 +187,28 @@
             }
         }
         var oldValue;
+
+        var sorting = {
+            "none": function() {
+
+            },
+            "service": function() {
+
+            },
+            "numerical": function() {
+
+            }
+
+        };
+
         function busSort(value) {
-            
+
+
+
+            if ( value in sorting) {
+                sorting[value]();
+            }
+
             // get sort mode
 
             // loop through the buses
