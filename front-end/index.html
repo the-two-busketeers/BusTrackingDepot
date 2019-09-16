@@ -2,7 +2,6 @@
     <head>
         <link rel = "stylesheet" type = "text/css" href = "busColor.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
-
     </head>
 
     <body>
@@ -14,6 +13,11 @@
                 <option value="vehicle">Vehicle ID</option>
                 <option value="service">Service</option>
             </select>
+        </div>
+        <div id ="search-bar">
+            <button onclick="busSort('none')">None</button>
+            <button onclick="busSort('service')">Service</button>
+            <button onclick="busSort('numerical')">Numerical</button>
         </div>
         <div class="grid-container">
 
@@ -64,16 +68,13 @@
         var busJson = {}
         function syncBusData(bool) {
             $.ajax({
-                url: "http://localhost:2000/init",
+                url: "http://192.168.152.146:5000/init",
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
                 success: function (json) {
                         busesJson = json;
-                        // Do loop through each section of the json
                         if (bool === true) {
-                            // remove loading circle from the running collum
-                            // insert the stuff into the sections and then update the variables
                             var image = document.getElementById("removeDiv")
 
                             image.parentNode.removeChild(image);
@@ -89,9 +90,7 @@
                             }
                         }
                         else {
-                            // do a loop through the stuff and update the data?
-                                // appendChild to the correct div that we want
-                                for (var key in json) {
+                            for (var key in json) {
                                     var element = document.getElementById(key)
                                     var dict = json[key]
                                     for(let i = 0; i < dict.length; i++){
@@ -135,7 +134,6 @@
         }
 
         function UpdateBusAccordion(busD, par) {
-            console.log(busD)
             var acc = busD.element.children[0]
             var panel = busD.element.children[1]
             SetBusData(acc, panel, busD);
@@ -181,6 +179,16 @@
                 }
             }
         }
+        var oldValue;
+        function busSort(value) {
+            
+            // get sort mode
+
+            // loop through the buses
+
+            // Service, numeric
+            // none
+        }
 
         setInterval(syncBusData, 1000 * 30);
         syncBusData(true);
@@ -193,6 +201,11 @@
         search.addEventListener("keyup", function(e) {
             busSearch(search.value, searchBox.options[searchBox.selectedIndex].value);
         })
+
+        searchBox.addEventListener("click", function(e) {
+            busSearch(search.value, searchBox.options[searchBox.selectedIndex].value);
+
+        } )
 
     </script>
 
