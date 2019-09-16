@@ -1,104 +1,7 @@
 <html>
     <head>
-        <style>
-            body {
-                background-image: url("images/background.jpg");
-                background-repeat: no-repeat;
-                /*background-blend-mode: overlay;*/
-                position: -webkit-sticky; /* Safari */
-                position: sticky;
-                top: 0;
-                background-color: #000000;
-            }
-
-            #title {
-                text-align: center;
-            }
-
-            #search-bar {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 40px;
-            }
-
-            .grid-container {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                grid-template-rows: 1fr;
-                grid-gap: 1em;
-                height: 60%;
-            }
-
-            .grid-element {
-                background-color: gray;
-                border: 1px black solid;
-                padding: 1px;
-                text-align: center;
-            }
-
-            .spin {
-            	-webkit-animation-name: spin;
-                -webkit-animation-duration: 5000ms;
-                -webkit-animation-iteration-count: infinite;
-                -webkit-animation-timing-function: linear;
-            	animation-name: spin;
-                animation-duration: 5000ms;
-                animation-iteration-count: infinite;
-                animation-timing-function: linear;
-            }
-            @keyframes spin {
-            	from {
-            		transform: rotate(0deg);
-              	}
-            	to {
-                		transform: rotate(360deg);
-            	}
-            }
-
-            @-webkit-keyframes spin {
-                from { -webkit-transform: rotate(0deg); }
-                to { -webkit-transform: rotate(360deg); }
-            }
-
-            .accordion {
-                background-color: #eee;
-                color: #FFFFFF;
-                cursor: pointer;
-                padding: 18px;
-                width: 100%;
-                border: none;
-                text-align: left;
-                outline: none;
-                font-size: 15px;
-                transition: 0.4s;
-            }
-
-            .accordion:hover {
-                background-color: #ccc !important;
-            }
-
-            .accordion:after {
-                content: '\002B';
-                color: #777;
-                font-weight: bold;
-                float: right;
-                margin-left: 5px;
-            }
-
-            .active:after {
-                content: "\2212";
-            }
-
-            .panel {
-                padding: 0 18px;
-                background-color: white;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.2s ease-out;
-            }
-        </style>
         <link rel = "stylesheet" type = "text/css" href = "busColor.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
 
     </head>
 
@@ -161,7 +64,7 @@
         var busJson = {}
         function syncBusData(bool) {
             $.ajax({
-                url: "http://192.168.152.145:5000/init",
+                url: "http://localhost:2000/init",
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
