@@ -48,6 +48,8 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="colors.js"></script>
         <script>
+        let sortType = "none"
+
         const pSBC=(p,c0,c1,l)=>{
             let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
             if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
@@ -76,7 +78,7 @@
         var busJson = {}
         function syncBusData(bool) {
             $.ajax({
-                url: "http://192.168.152.146:5000/init",
+                url: "http://localhost:2000/init",
                 type: "GET",
                 dataType: "json",
                 crossDomain: true,
@@ -117,6 +119,7 @@
                                 }
 
                         }
+                        busSort(sortType)
                     },
                     error: function (res) { console.log(res); }
                 }
@@ -190,31 +193,71 @@
 
         var sorting = {
             "none": function() {
-
+                syncBusData()
             },
             "service": function() {
+                var busLists = document.getElementsByClassName("buslist");
 
+                // for (var i = 0; i < busLists.length; i++) {
+                //     var buses = []
+                //     for (var j = 0; j < busLists[i].children.length; j++) {
+                //         buses.push(busLists[i][j])
+                //     }
+                // }
+                for (let i = 0; i < busLists.length; i++) {
+                    let busList = Array.prototype.slice.call(busLists[i].children).sort(function(a, b) {
+                        a = a.children[1].innerText.split(" ")[1].split("\n")[0].replace(/[A-Za-z]/g, "")
+
+                        if (a == "" || a == "asd") a = "0"
+
+                        b = b.children[1].innerText.split(" ")[1].split("\n")[0].replace(/[A-Za-z]/g, "")
+
+                        if (b == "" || b == "asd") b = "0"
+
+                        return a.localeCompare(b)
+                    })
+
+                    for (let j = 0; j < busList.length; j++) {
+                        let parent = busList[j].parentNode
+                        let detachedItem = parent.removeChild(busList[j])
+
+                        parent.append(detachedItem)
+                    }
+                }
             },
             "numerical": function() {
+                var busLists = document.getElementsByClassName("buslist");
 
+                // for (var i = 0; i < busLists.length; i++) {
+                //     var buses = []
+                //     for (var j = 0; j < busLists[i].children.length; j++) {
+                //         buses.push(busLists[i][j])
+                //     }
+                // }
+                for (let i = 0; i < busLists.length; i++) {
+                    let busList = Array.prototype.slice.call(busLists[i].children).sort(function(a, b) {
+                        a = parseInt(a.textContent.replace(/[A-Za-z:]/g, "").split(" ")[0])
+                        b = parseInt(b.textContent.replace(/[A-Za-z:]/g, "").split(" ")[0])
+
+                        return a - b
+                    })
+
+                    for (let j = 0; j < busList.length; j++) {
+                        let parent = busList[j].parentNode
+                        let detachedItem = parent.removeChild(busList[j])
+
+                        parent.append(detachedItem)
+                    }
+                }
             }
 
         };
 
         function busSort(value) {
-
-
-
             if ( value in sorting) {
+                sortType = value
                 sorting[value]();
             }
-
-            // get sort mode
-
-            // loop through the buses
-
-            // Service, numeric
-            // none
         }
 
         setInterval(syncBusData, 1000 * 30);
