@@ -28,7 +28,7 @@ const pSBC=(p,c0,c1,l)=>{
 var busJson = {}
 function syncBusData(bool, noSort) {
 	$.ajax({
-		url: "http://192.168.152.149:5000/init",
+		url: "http://192.168.152.152:5000/init",
 		type: "GET",
 		dataType: "json",
 		crossDomain: true,
@@ -93,6 +93,12 @@ function SetBusData(acc, panel, json) {
 	acc.innerHTML = json.vehicle;
 	acc.style.backgroundImage = "linear-gradient(90deg," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + pSBC ( -0.4, busColors[service] ) + ")"
 	panel.innerHTML = "Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
+	panel.innerHTML = panel.innerHTML + "<br><br>"
+	var button = document.createElement("button");
+	button.innerText = "Track Me!";
+
+	panel.appendChild(button);
+	panel.innerHTML = panel.innerHTML + "<br><br>"
 }
 
 function UpdateBusAccordion(busD, par) {
@@ -108,9 +114,12 @@ function CreateBusAccordion(json, element) {
 	var acc = document.createElement("button");
 	var panel = document.createElement("div");
 
+
 	SetBusData(acc, panel, json);
 
+
 	panel.classList.add("panel");
+
 	acc.classList.add("accordion");
 	mainDiv.appendChild(acc);
 	mainDiv.appendChild(panel);
@@ -170,7 +179,6 @@ var sorting = {
 			for (let j = 0; j < busList.length; j++) {
 				let parent = busList[j].parentNode
 				let detachedItem = parent.removeChild(busList[j])
-
 				parent.append(detachedItem)
 			}
 		}
@@ -224,5 +232,4 @@ search.addEventListener("keyup", function(e) {
 
 searchBox.addEventListener("click", function(e) {
 	busSearch(search.value, searchBox.options[searchBox.selectedIndex].value);
-
 } )

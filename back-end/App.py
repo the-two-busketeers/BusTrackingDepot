@@ -99,6 +99,12 @@ def init():
     response = jsonify(dict)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+@app.route("/track/<vehicleID>", methods=["GET"])
+def track(vehicleID):
+    dict = RequestBusPosition(vehicleID)
+    response = jsonify(dict)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == "__main__":
     app.debug = True

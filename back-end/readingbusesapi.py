@@ -101,6 +101,13 @@ class ReadingBusesAPI:
             return busArrayTwo
         else:
             return busArray
+    def RequestBusPosition(self, vehicle ):
+        busArray = self.Call("Buses", {})
+        busArrayTwo = []
+        for bus in busArray:
+            if bus["vehicle"] == vehicle:
+                return bus
+                break
     def RequestRoute(self, service):
         print(service)
         return self.Call("Route", {"service" : service})
