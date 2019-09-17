@@ -106,6 +106,10 @@ def track(vehicleID):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route("/")
+def serve_index():
+    return send_file("../front-end/index.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host= "0.0.0.0", port=os.environ["PORT"])

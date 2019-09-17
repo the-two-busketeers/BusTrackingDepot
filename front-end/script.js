@@ -28,7 +28,7 @@ const pSBC=(p,c0,c1,l)=>{
 var busJson = {}
 function syncBusData(bool, noSort) {
 	$.ajax({
-		url: "http://192.168.152.153:5000/init",
+		url: "https://bus-tracker-reading-buses.herokuapp.com/init",
 		type: "GET",
 		dataType: "json",
 		crossDomain: true,
