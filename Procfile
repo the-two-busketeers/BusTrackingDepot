@@ -1,1 +1,1 @@
-web: cd back-end; python back-end/App.py
+web: cd back-end; python App.py
