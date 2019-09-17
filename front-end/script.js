@@ -97,7 +97,8 @@ function SetBusData(acc, panel, json) {
 	if (json["isRunning"] === "1") {
 		var button = document.createElement("button");
 		button.innerText = "Track Me!";
-
+		console.log("Wow");
+		button.setAttribute("onclick", "window.location.href='track.html?vehicleID=" + json.vehicle +"'");
 		panel.appendChild(button);
 		panel.innerHTML = panel.innerHTML + "<br><br>"
 	}

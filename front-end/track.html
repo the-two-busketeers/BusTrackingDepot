@@ -22,7 +22,7 @@
   </head>
   <body>
     <h1 id="header2">Where is the Bus </h1>
-
+    <button onclick="window.location.href='index.html'"> Go Back</button>
     <div id="busMap"></div>
 
     <script>
@@ -59,12 +59,11 @@
 	    // { icon: busIcon }
         let marker = L.marker([0, 0] ).addTo(mymap);
 
-        const api_url = 'http://192.168.152.153:5000/track/' + vehicleID;
+        const api_url = 'https://bus-tracker-reading-buses.herokuapp.com/track/' + vehicleID;
 
         async function getBus() {
             const response = await fetch(api_url);
             const data = await response.json();
-            console.log(data)
 
             var latitude = data["latitude"];
             var longitude = data["longitude"];
