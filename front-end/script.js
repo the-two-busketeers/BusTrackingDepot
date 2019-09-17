@@ -28,7 +28,7 @@ const pSBC=(p,c0,c1,l)=>{
 var busJson = {}
 function syncBusData(bool, noSort) {
 	$.ajax({
-		url: "http://192.168.152.148:5000/init",
+		url: "http://192.168.152.149:5000/init",
 		type: "GET",
 		dataType: "json",
 		crossDomain: true,
@@ -69,7 +69,7 @@ function syncBusData(bool, noSort) {
 						}
 
 				}
-				if (noSort === false) {
+				if (noSort !== true) {
 					busSort(sortType)
 				}
 			},
