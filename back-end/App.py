@@ -108,21 +108,21 @@ def track(vehicleID):
 
 @app.route("/")
 def serve_index():
-    return serve_html("index.html")
+    return redirect("/static/index.html")
 
-@app.route("/static/<html_file>", methods=["GET"])
+@app.route("/<html_file>", methods=["GET"])
 def serve_html(html_file):
     return render_template(html_file)
 
-@app.route("/static/<css_file>")
+@app.route("/<css_file>")
 def serve_css(css_file):
     return render_template(css_file)
 
-@app.route("/static/<image>")
+@app.route("/<image>")
 def serve_image(image):
     return send_from_directory(image)
 
-@app.route("/static/<js_file>")
+@app.route("/<js_file>")
 def serve_javascript(js_file):
     return send_from_directory(js_file)
 
