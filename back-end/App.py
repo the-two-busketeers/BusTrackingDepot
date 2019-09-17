@@ -108,7 +108,7 @@ def track(vehicleID):
 
 @app.route("/")
 def serve_index():
-    return redirect(url_for("index.html"))
+    return serve_html("index.html")
 
 @app.route("/<html_file>", methods=["GET"])
 def serve_html(html_file):
