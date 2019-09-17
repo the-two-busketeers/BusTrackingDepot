@@ -28,7 +28,7 @@ const pSBC=(p,c0,c1,l)=>{
 var busJson = {}
 function syncBusData(bool, noSort) {
 	$.ajax({
-		url: "http://192.168.152.152:5000/init",
+		url: "http://192.168.152.153:5000/init",
 		type: "GET",
 		dataType: "json",
 		crossDomain: true,
@@ -92,13 +92,15 @@ function SetBusData(acc, panel, json) {
 	}
 	acc.innerHTML = json.vehicle;
 	acc.style.backgroundImage = "linear-gradient(90deg," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + pSBC ( -0.4, busColors[service] ) + ")"
-	panel.innerHTML = "Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
+	panel.innerHTML = "<br>Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
 	panel.innerHTML = panel.innerHTML + "<br><br>"
-	var button = document.createElement("button");
-	button.innerText = "Track Me!";
+	if (json["isRunning"] === "1") {
+		var button = document.createElement("button");
+		button.innerText = "Track Me!";
 
-	panel.appendChild(button);
-	panel.innerHTML = panel.innerHTML + "<br><br>"
+		panel.appendChild(button);
+		panel.innerHTML = panel.innerHTML + "<br><br>"
+	}
 }
 
 function UpdateBusAccordion(busD, par) {

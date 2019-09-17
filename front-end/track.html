@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+      crossorigin=""
+    ></script>
+    <style>
+      #busMap {
+        height: 700px;
+      }
+    </style>
+
+    <title>Track a bus</title>
+  </head>
+  <body>
+    <h1 id="header2">Where is the Bus </h1>
+
+    <div id="busMap"></div>
+
+    <script>
+
+		function getParam(param) {
+		    var url = location.search
+		        var patt = new RegExp( param + "=([^&]+)");
+		        var captured = patt.exec(url)[1]; // Value is in [1] ('384' in our case)
+		        var result = captured ? captured : 'failed';
+
+		        if (result !=="failed" ) {
+		            return result;
+		        }
+		        return "";
+		}
+
+		var vehicleID = getParam("vehicleID");
+
+		document.getElementById("header2").innerHTML += vehicleID;
+
+        // Making a map and tiles
+        // Setting a higher initial zoom to make effect more obvious
+        const mymap = L.map('busMap').setView([0, 0], 17);
+        const attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+
+        const busIcon = L.icon({
+            iconUrl: 'images/busIcon.png',
+            iconSize: [50, 32],
+            iconAnchor: [25, 16]
+        });
+	    // { icon: busIcon }
+        let marker = L.marker([0, 0] ).addTo(mymap);
+
+        const api_url = 'http://192.168.152.153:5000/track/' + vehicleID;
+
+        async function getBus() {
+            const response = await fetch(api_url);
+            const data = await response.json();
+            console.log(data)
+
+            var latitude = data["latitude"];
+            var longitude = data["longitude"];
+
+            mymap.setView([latitude, longitude], mymap.getZoom());
+            marker.setLatLng([latitude, longitude]);
+        }
+        getBus();
+        setInterval(getBus, 1000*2);
+    </script>
+    </body>
+</html>

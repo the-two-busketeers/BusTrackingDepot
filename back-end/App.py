@@ -7,14 +7,14 @@ import datetime
 import threading
 import time
 
+busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
+
 
 class BusUpdater(object):
 
     def __init__(self, interval=30):
 
         self.interval = interval
-
-        self.busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
 
         thread = threading.Thread(target=self.run, args=())
         thread.daemon = True                            # Daemonize thread
@@ -23,7 +23,7 @@ class BusUpdater(object):
     def run(self):
         while True:
             buses = {}
-            aBuses = self.busWrapper.Call("Buses", {})
+            aBuses = busWrapper.Call("Buses", {})
 
             for data in aBuses:
                 buses[data["vehicle"]] = data
@@ -101,7 +101,7 @@ def init():
     return response
 @app.route("/track/<vehicleID>", methods=["GET"])
 def track(vehicleID):
-    dict = RequestBusPosition(vehicleID)
+    dict = busWrapper.RequestBusPosition(vehicleID)
     response = jsonify(dict)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
