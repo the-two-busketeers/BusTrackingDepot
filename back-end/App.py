@@ -108,7 +108,7 @@ def track(vehicleID):
 
 @app.route("/")
 def serve_index():
-    return render_template("index.html")
+    return render_template("static/index.html")
 
 if __name__ == "__main__":
     app.debug = True
