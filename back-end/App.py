@@ -106,6 +106,10 @@ def track(vehicleID):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route("/")
+def serve_index():
+    return redirect(url_for("index.html"))
+
 @app.route("/<html_file>", methods=["GET"])
 def serve_html(html_file):
     return render_template(html_file)
