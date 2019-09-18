@@ -16,6 +16,14 @@
       #busMap {
         height: 700px;
       }
+      .busIcon {
+          border-top-left-radius: 50%;
+          border-top-right-radius: 0%;
+          border-bottom-right-radius: 50%;
+          border-bottom-left-radius: 50%;
+          border: 2px solid #73AD21;
+          background: #FFF;
+      }
     </style>
 
     <title>Track a bus</title>
@@ -51,28 +59,37 @@
         const tiles = L.tileLayer(tileUrl, { attribution });
         tiles.addTo(mymap);
 
-        const busIcon = L.icon({
-            iconUrl: 'images/busIcon.png',
-            iconSize: [50, 32],
-            iconAnchor: [25, 16]
+        const busIcon = L.divIcon({
+            //iconUrl: 'images/busIcon.png',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+            className: "busIcon"
         });
 	    // { icon: busIcon }
-        let marker = L.marker([0, 0] ).addTo(mymap);
+        let marker = L.marker([0, 0], {icon: busIcon} ).addTo(mymap);
 
         const api_url = 'https://bus-tracker-reading-buses.herokuapp.com/track/' + vehicleID;
-
+        //const api_url = "http://192.168.152.153:5000/track/"+ vehicleID;
         async function getBus() {
             const response = await fetch(api_url);
             const data = await response.json();
 
             var latitude = data["latitude"];
             var longitude = data["longitude"];
-
+            console.log(data);
             mymap.setView([latitude, longitude], mymap.getZoom());
             marker.setLatLng([latitude, longitude]);
+            busIconE = document.getElementsByClassName("busIcon")[0]
+
+            //marker.setHeading(data["bearing"])
+
+            bearing = data["bearing"];
+            busIconE.style.transform = busIconE.style.transform + "rotate( " + (bearing-45).toString() + "deg)"
+            //busIconE.style.transform = busIconE.style.transform + "rotate( " + (data["bearing"]).toString() + "deg)"
+            //busIconE.innerHTML = "<div style ='background: #FF;'> <p> | </p></div>"
         }
         getBus();
-        setInterval(getBus, 1000*2);
+        setInterval(getBus, 1000*10);
     </script>
     </body>
 </html>

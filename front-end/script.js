@@ -29,6 +29,7 @@ var busJson = {}
 function syncBusData(bool, noSort) {
 	$.ajax({
 		url: "https://bus-tracker-reading-buses.herokuapp.com/init",
+		//url: "http://192.168.152.153:5000/init",
 		type: "GET",
 		dataType: "json",
 		crossDomain: true,
@@ -93,6 +94,7 @@ function SetBusData(acc, panel, json) {
 	acc.innerHTML = json.vehicle;
 	acc.style.backgroundImage = "linear-gradient(90deg," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + pSBC ( -0.4, busColors[service] ) + ")"
 	panel.innerHTML = "<br>Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
+	panel.innerHTML = panel.innerHTML + "<br>Last Seen: " + json.observed
 	panel.innerHTML = panel.innerHTML + "<br><br>"
 	if (json["isRunning"] === "1") {
 		var button = document.createElement("button");
@@ -222,7 +224,7 @@ function busSort(value) {
 }
 
 setInterval(syncBusData, 1000 * 30);
-syncBusData(true);
+syncBusData(true, true);
 
 // add selecting from the service
 // searching in the search box
