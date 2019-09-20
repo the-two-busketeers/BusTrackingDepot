@@ -29,7 +29,7 @@ var busJson = {}
 function syncBusData(bool, noSort) {
 	$.ajax({
 		url: "https://bus-tracker-reading-buses.herokuapp.com/init",
-		//url: "http://192.168.152.153:5000/init",
+		//url: "http://192.168.152.155:5000/init",
 		type: "GET",
 		dataType: "json",
 		crossDomain: true,
@@ -95,7 +95,17 @@ function SetBusData(acc, panel, json) {
 	acc.style.backgroundImage = "linear-gradient(90deg," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + busColors[service] + "," + pSBC ( -0.4, busColors[service] ) + ")"
 	panel.innerHTML = "<br>Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
 	panel.innerHTML = panel.innerHTML + "<br>Last Seen: " + json.observed
-	panel.innerHTML = panel.innerHTML + "<br><br>"
+	if (json["isRunning"] === "1") {
+		panel.innerHTML = panel.innerHTML + "<br>Distance: " + json.distance[0] + "M"
+		panel.innerHTML = panel.innerHTML + "<br><br>"
+		console.log(json.distance, json.distance <= 200)
+		if (json.distance[0] <= 200) {
+			acc.innerHTML = acc.innerHTML + " Leaving/Enter"
+		}
+	}
+	else{
+		panel.innerHTML = panel.innerHTML + "<br><br>"
+	}
 	if (json["isRunning"] === "1") {
 		var button = document.createElement("button");
 		button.innerText = "Track Me!";
@@ -146,7 +156,7 @@ function busSearch(match, key) {
 			bus.element.style.display = "";
 			continue;
 		}
-		if ( key in bus && (bus[key].includes(match.toUpperCase()) || bus[key].includes(match.toLowerCase()))) {
+		if ( key in bus && (bus[key].toUpperCase().includes(match.toUpperCase()) || bus[key].includes(match.toLowerCase()))) {
 			bus.element.style.display = "";
 		}
 		else {
@@ -211,8 +221,30 @@ var sorting = {
 				parent.append(detachedItem)
 			}
 		}
-	}
+	},
+	"distance" : function() {
+		var busLists = document.getElementsByClassName("buslist");
 
+		// for (var i = 0; i < busLists.length; i++) {
+		//     var buses = []
+		//     for (var j = 0; j < busLists[i].children.length; j++) {
+		//         buses.push(busLists[i][j])
+		//     }
+		// }
+			let busList = Array.prototype.slice.call(busLists[0].children).sort(function(a, b) {
+				a = parseInt( busJson[a.children[0].innerText.split(" ")[0]].distance[0])
+				b = parseInt(busJson[b.children[0].innerText.split(" ")[0]].distance[0])
+
+				return a - b
+			})
+
+			for (let j = 0; j < busList.length; j++) {
+				let parent = busList[j].parentNode
+				let detachedItem = parent.removeChild(busList[j])
+
+				parent.append(detachedItem)
+			}
+	}
 };
 
 function busSort(value) {

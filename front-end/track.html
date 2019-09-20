@@ -23,6 +23,7 @@
           border-bottom-left-radius: 50%;
           border: 2px solid #73AD21;
           background: #FFF;
+          box-shadow: 0px 0px 4px #000;
       }
     </style>
 
@@ -34,6 +35,9 @@
     <div id="busMap"></div>
 
     <script>
+
+        var lat = 51.459180
+        var lng = -0.981368
 
 		function getParam(param) {
 		    var url = location.search
@@ -67,9 +71,9 @@
         });
 	    // { icon: busIcon }
         let marker = L.marker([0, 0], {icon: busIcon} ).addTo(mymap);
-
+        L.circle([lat,lng], 200).addTo(mymap);
         const api_url = 'https://bus-tracker-reading-buses.herokuapp.com/track/' + vehicleID;
-        //const api_url = "http://192.168.152.153:5000/track/"+ vehicleID;
+        //const api_url = "http://192.168.152.155:5000/track/"+ vehicleID;
         async function getBus() {
             const response = await fetch(api_url);
             const data = await response.json();

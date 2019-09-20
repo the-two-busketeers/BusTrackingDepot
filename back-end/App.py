@@ -1,15 +1,25 @@
 
 from flask import *
+# Generalised Imports
 import os
 import json
-import readingbusesapi as busWrapper
 import datetime
 import threading
 import time
 
+# Our custom Module imports
+import readingbusesapi as busWrapper
+import cords
+
 busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
 
+readingDepot = {
+    "longitude": -0.981368,
+    "latitude":  51.459180,
+}
 
+# We create the BusUpdate class which we will run on another thread so
+#that it does not interacts with the flask server
 class BusUpdater(object):
 
     def __init__(self, interval=30):
@@ -44,7 +54,9 @@ class BusUpdater(object):
                         jsonData["service"] = busData["service"]
                         jsonData["observed"] = busData["observed"]
                         jsonData["isRunning"] = "1"
-
+                        jsonData["latitude"] = busData["latitude"]
+                        jsonData["longitude"] = busData["longitude"]
+                        jsonData["distance"] = cords.LatLongToDistance(readingDepot["latitude"], readingDepot["longitude"], float(busData["latitude"]), float(busData["longitude"]))
                         buses[vehicle] = None
                     else:
                         jsonData["isRunning"] = "0"
@@ -63,6 +75,9 @@ class BusUpdater(object):
                     jsonData["isRunning"] = "1"
                     jsonData["service"] = data["service"]
                     jsonData["returnTime"] = "2019-08-22 19:46:13"
+                    jsonData["latitude"] = busData["latitude"]
+                    jsonData["longitude"] = busData["longitude"]
+                    jsonData["distance"] = cords.LatLongToDistance(readingDepot["latitude"], readingDepot["latitude"], float(busData["latitude"]), float(busData["longitude"]))
 
                     with open(os.getcwd() + "/buses/" + data["vehicle"] + ".json", 'w') as f:
                         f.write(json.dumps(jsonData))
@@ -108,24 +123,19 @@ def track(vehicleID):
 
 @app.route("/")
 def serve_index():
-    return redirect("/static/index.html")
+    return render_template("/index.html")
 
-@app.route("/<html_file>", methods=["GET"])
-def serve_html(html_file):
-    return render_template(html_file)
-
-@app.route("/<css_file>")
-def serve_css(css_file):
-    return render_template(css_file)
-
-@app.route("/<image>")
-def serve_image(image):
-    return send_from_directory(image)
-
-@app.route("/<js_file>")
-def serve_javascript(js_file):
-    return send_from_directory(js_file)
-
+@app.route("/getAllBus")
+def getAllBus():
+    Dict = []
+    for files in os.listdir( os.getcwd() + "/buses"):
+        if files.endswith(".json"):
+            jsonFile = open(os.getcwd() + "/buses/" + files)
+            jsonData = json.load(jsonFile)
+            Dict.Append(jsonData["vehicle"])
+    with open() as f:
+        for a in Dict:
+            f.write(a .. ",\n")
 
 if __name__ == "__main__":
     app.debug = True
