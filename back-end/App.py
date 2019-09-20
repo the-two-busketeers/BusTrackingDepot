@@ -135,7 +135,7 @@ def getAllBus():
             Dict.Append(jsonData["vehicle"])
     with open() as f:
         for a in Dict:
-            f.write(a .. ",\n")
+            f.write(a + ",\n")
 
 if __name__ == "__main__":
     app.debug = True
