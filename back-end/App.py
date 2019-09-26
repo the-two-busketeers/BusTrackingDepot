@@ -153,6 +153,32 @@ def getAllBus():
         for a in Dict:
             f.write(a + ",\n")
 
+customBus = {}
+@app.route('/addBus', methods=["POST"])
+def addBus():
+    dict = {}
+    dict["service"] = request.form["service"]
+    dict["vehicle"] = request.form["vehicle"]
+    dict["isRunning"] = request.form["isRunning"]
+    dict["latitude"] = request.form["latitude"]
+    dict["longitude"] = request.form["longitude"]
+    dict["customBus"] = "1"
+    dict["observed"] = datetime.date.today()
+    customBus[request.form["service"]] = dict
+
+@app.route("/fetchCBus/<busID>")
+def fetchBus(busID):
+    if (busID in customBus):
+        response = jsonify(dict)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    else:
+        dict = busWrapper.RequestBusPosition(busID)
+        response = jsonify(dict)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    return jsonify({})
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host= "0.0.0.0", port=os.environ["PORT"])
