@@ -1,5 +1,6 @@
 
 from flask import *
+from flask import request
 # Generalised Imports
 import os
 import json
@@ -156,12 +157,13 @@ def getAllBus():
 customBus = {}
 @app.route('/addBus', methods=["POST"])
 def addBus():
+    form = request.get_json()
     dict = {}
-    dict["service"] = request.form["service"]
-    dict["vehicle"] = request.form["vehicle"]
-    dict["isRunning"] = request.form["isRunning"]
-    dict["latitude"] = request.form["latitude"]
-    dict["longitude"] = request.form["longitude"]
+    dict["service"] = form["service"]
+    dict["vehicle"] = form["vehicle"]
+    dict["isRunning"] = form["isRunning"]
+    dict["latitude"] = form["latitude"]
+    dict["longitude"] = form["longitude"]
     dict["customBus"] = "1"
     dict["observed"] = datetime.date.today()
     customBus[request.form["service"]] = dict
