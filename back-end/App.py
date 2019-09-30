@@ -166,7 +166,7 @@ def addBus():
     dict["longitude"] = form["longitude"]
     dict["customBus"] = "1"
     dict["observed"] = datetime.date.today()
-    customBus[form["service"]] = dict
+    customBus[form["vehicle"]] = dict
     return ""
 
 @app.route("/fetchCBus/<busID>")
