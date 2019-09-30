@@ -167,11 +167,12 @@ def addBus():
     dict["customBus"] = "1"
     dict["observed"] = datetime.date.today()
     customBus[form["service"]] = dict
+    return ""
 
 @app.route("/fetchCBus/<busID>")
 def fetchBus(busID):
     if (busID in customBus):
-        response = jsonify(dict)
+        response = jsonify(customBus[busID])
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     else:
