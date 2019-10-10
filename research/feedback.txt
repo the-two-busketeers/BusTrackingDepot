@@ -1,0 +1,9 @@
+DeanoYesterday at 12:55
+Main things that stick out styling-wise for me:
+- The title should be a <heading> tag and be sized appropriately.
+- The search bar needs to be bigger and match the same size as the drop down and buttons
+- Jazz up the search/buttons a bit
+- Remove the :hover from the section headers. Generally, :hover styling indicates that you can click it and do something but clicking the headers doesn't do anything
+- Remove the cursor: pointer from the headers because they don't do anything when clicked. Your cursor: pointer should be on the buses themselves.
+- Remove the harsh black border for each section and instead make it the same colour as the heading.
+- Along with the above point, add a box-shadow to each section to make it 'pop' away from the background. Similar effect for the text instead of a harsh black outline would be good

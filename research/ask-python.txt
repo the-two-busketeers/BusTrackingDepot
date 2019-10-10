@@ -1,0 +1,3 @@
+https://developer.amazon.com/docs/alexa-skills-kit-sdk-for-python/sample-skills.html
+https://github.com/alexa/alexa-skills-kit-sdk-for-python/tree/master/flask-ask-sdk
+https://github.com/alexa/skill-sample-python-petmatch/blob/master/lambda/py/lambda_function.py
