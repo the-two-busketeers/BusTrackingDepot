@@ -1,0 +1,47 @@
+* {
+    font-family: sans-serif;
+}
+
+#header2 {
+  text-align: center;
+  text-shadow: 1px 1px 1px #222;
+}
+
+button::before {
+  content: '\2190'
+}
+
+button {
+  position: absolute;
+}
+
+body {
+  background-image: url("images/background-blur.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-blend-mode: overlay;*/
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: #000000;
+  overflow-y: hidden;
+}
+
+#busMap {
+  position: absolute;
+  height: 75vh;
+  width: 75vw;
+  box-shadow: 5px 5px 5px #000;
+  border-radius: 10px;
+  transform: translateX(15%)
+}
+
+.busIcon {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border: 2px solid #73AD21;
+    background: #FFF;
+    box-shadow: 0px 0px 4px #000;
+}

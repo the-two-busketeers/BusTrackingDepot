@@ -1,5 +1,5 @@
 body {
-    background-image: url("images/background.jpg");
+    background-image: url("images/background-blur.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     /*background-blend-mode: overlay;*/
@@ -12,6 +12,8 @@ body {
 
 #title {
     text-align: center;
+    font-family: sans-serif;
+    font-size: 2em;
 }
 
 #search-bar {
@@ -19,6 +21,14 @@ body {
     align-items: center;
     justify-content: center;
     height: 40px;
+}
+
+#search-bar button {
+  box-shadow: 1px 0px 1px #000000
+}
+
+#search-bar select {
+  box-shadow: 1px 0px 1px #000000
 }
 
 .grid-container {
@@ -42,6 +52,13 @@ body {
     font-weight: bold;
     text-align: center;
     border: 1px black solid;
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: 5px 5px 5px #00000077;
+}
+
+.grid-element #header:hover {
+    background: #eee !important;
+    cursor: default;
 }
 
 .grid-element #header::after {
@@ -55,7 +72,10 @@ body {
     text-align: center;
     overflow-y: auto;
     height: 70vh;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 5px 5px 5px #00000077
 }
+
 #sticky {
     position: -webkit-sticky; /* Safari */
     position: sticky;
