@@ -12,7 +12,16 @@ button::before {
 }
 
 button {
+  font-size: .8em;
+  font-weight: bold;
   position: absolute;
+  background-color: #ddd;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 1px;
+  /* border: 2px #ccc solid; */
+  border: none;
+  box-shadow: 1px 1px 2px #000000
 }
 
 body {

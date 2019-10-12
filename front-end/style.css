@@ -16,6 +16,17 @@ body {
     font-size: 2em;
 }
 
+#search-container {
+  display: inline-block;
+  text-align: center;
+  background-color: #00000099;
+  margin: 2px 0 10px 50vw;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 5px #00000077;
+  transform: translateX(-52.5%);
+}
+
 #search-bar {
     display: flex;
     align-items: center;
@@ -23,13 +34,26 @@ body {
     height: 40px;
 }
 
-#search-bar button {
-  box-shadow: 1px 0px 1px #000000
+#search-bar button, #search-bar select, #search-bar input, .panel button {
+  font-size: .8em;
+  font-weight: bold;
+  background-color: #ddd;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 1px;
+  /* border: 2px #ccc solid; */
+  border: none;
+  box-shadow: 1px 1px 2px #000000
 }
 
-#search-bar select {
-  box-shadow: 1px 0px 1px #000000
-}
+/* #search-bar select {
+  background-color: #ddd;
+  border-radius: 2px;
+  padding: 3px;
+  margin: 1px;
+  border: 2px #ccc solid;
+  box-shadow: 1px 1px 2px #000000
+} */
 
 .grid-container {
     display: grid;
@@ -51,7 +75,7 @@ body {
     font-size: x-large;
     font-weight: bold;
     text-align: center;
-    border: 1px black solid;
+    /* border: 1px black solid; */
     border-radius: 15px 15px 0px 0px;
     box-shadow: 5px 5px 5px #00000077;
 }
@@ -67,7 +91,7 @@ body {
 
 .buslist {
     background-color: #808080cc;
-    border: 1px black solid;
+    /* border: 1px black solid; */
     border-top: none;
     text-align: center;
     overflow-y: auto;
@@ -110,8 +134,8 @@ body {
 
 .accordion {
     background-color: #eee;
-    color: #cccccc;
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    color: #fff;
+    text-shadow: -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 1px 1px 1px black;
     cursor: pointer;
     padding: 18px;
     width: 100%;
