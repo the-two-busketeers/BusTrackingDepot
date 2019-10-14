@@ -269,6 +269,9 @@ searchBox.addEventListener("click", function(e) {
 	busSearch(search.value, searchBox.options[searchBox.selectedIndex].value);
 } )
 
+var grid_container = document.getElementsByClassName("grid-container")[0]
+
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-  alert("Hello")
+  $(".grid-container").attr("style", "display: none")
 }
+
