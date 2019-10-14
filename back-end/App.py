@@ -11,6 +11,7 @@ import time
 # Our custom Module imports
 import readingbusesapi as busWrapper
 import busupdater as busUpdater
+import bustracker as busTracker
 import cords
 
 busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
@@ -28,7 +29,7 @@ customBus = {}
 #that it does not interacts with the flask server
 
 example = busUpdater.BusUpdater()
-busTracker = busUpdater.BusTracker()
+busTracker = busTracker.BusTracker()
 
 app = Flask(__name__)
 
