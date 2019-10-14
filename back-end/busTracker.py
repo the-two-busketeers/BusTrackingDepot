@@ -11,7 +11,7 @@ class BusTracker(object):
         while True:
             for a in customBus:
                 while open(os.getcwd() + "/trackBus/" + a["vehicle"] + ".json", "wr") as f:
-                    b = RequestBusPosition( a["vehicle"][2] ):
+                    b = RequestBusPosition( a["vehicle"][2] )
                     jsonTime = json.load(f)
                     jsonData = {}
                     jsonData["T"] = a
