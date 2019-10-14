@@ -1,1 +1,1 @@
-{"observed": "2019-10-14 09:18:58", "vehicle": "864", "isRunning": "0", "service": "26", "returnTime": "2019-08-22 19:46:13", "latitude": "51.457973", "longitude": "-0.971548", "distance": [693, 0.43]}
+{"observed": "2019-10-14 11:07:27", "vehicle": "864", "isRunning": "1", "service": "26", "returnTime": "2019-08-22 19:46:13", "latitude": "51.440310", "longitude": "-1.048386", "distance": [5096, 3.17], "lastService": "26"}
