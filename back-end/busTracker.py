@@ -2,7 +2,7 @@ import threading
 import time
 
 class BusTracker(object):
-    def __init__(self, service, interval=30):
+    def __init__(self, interval=30):
         self.interval = interval
 
         thread = threading.Thread(target=self.run, args=())
