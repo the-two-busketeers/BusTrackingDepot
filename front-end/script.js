@@ -279,7 +279,7 @@ var grid_container = document.getElementsByClassName("grid-container")[0]
           if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     $(".mobile-load").attr("style", "padding-right: 10%; display:;");
     $(".desktop-load").attr("style", "padding-top: 15%; display: none");
-    $("body").attr("style", "background-repeat: repeat-y; height: 100%; width: 100%; overflow-y: scroll; overflow-x: hidden")
+    $("body").attr("style", "background-repeat: repeat-y; height: 100%; width: 100%; overflow-y: hidden; overflow-x: hidden")
     $(".grid-container").attr("style", "display: block; width: 50vw; transform: translateX(24vw)")
     var headers = $(".grid-container #header");
     for (let i = 0; i < headers.length; i++) {

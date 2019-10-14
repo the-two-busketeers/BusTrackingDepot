@@ -26,7 +26,7 @@ button {
 
 body {
   background-image: url("images/background-blur.jpg");
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: cover;
   /*background-blend-mode: overlay;*/
   position: -webkit-sticky; /* Safari */
