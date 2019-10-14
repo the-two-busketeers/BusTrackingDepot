@@ -15,9 +15,13 @@ function loadBus() {
 }
 
 
-const api_url = 'https://bus-tracker-reading-buses.herokuapp.com/track/';
+const api_url = 'https://bus-tracker-reading-buses.herokuapp.com/fetchC/';
 //const api_url = "http://192.168.152.155:5000/track/"+ vehicleID;
 async function getBus() {
+	if (busService === "NULL") {
+		return;
+	}
+
 	const response = await fetch(api_url + busService);
 	const data = await response.json();
 

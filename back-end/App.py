@@ -6,7 +6,6 @@ import os
 import json
 import datetime
 import threading
-import time
 
 
 class BusTracker(object):
@@ -111,8 +110,11 @@ def addBus():
     dict["isRunning"] = form["isRunning"]
     dict["latitude"] = form["latitude"]
     dict["longitude"] = form["longitude"]
+    dict["bearing"] = form["bearing"]
     dict["customBus"] = "1"
-    dict["observed"] = datetime.datetime.now()
+    x = datetime.datetime.now()
+    dict["observed"] = str(x.year) + "-" + str(x.month) + "-" + str(x.day) + " " + str(x.hour) + ":" + str(x.minute) + ":" + str(x.second)
+
     customBus[form["vehicle"]] = dict
     return ""
 
@@ -133,7 +135,7 @@ def fetchBus(busID):
 def fetchC(busID):
     if ("T" + busID) in customBus:
         a = customBus["T" + busID]
-        b = RequestBusPosition( busID )
+        b = busWrapper.RequestBusPosition( busID )
         jsonData = {}
         jsonData["T"] = a
         if b:
