@@ -11,7 +11,6 @@ import time
 # Our custom Module imports
 import readingbusesapi as busWrapper
 import busupdater as busUpdater
-import bustracker as busTracker
 import cords
 
 busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
@@ -29,7 +28,7 @@ customBus = {}
 #that it does not interacts with the flask server
 
 example = busUpdater.BusUpdater()
-busTracker = busTracker.BusTracker()
+busTracker = BusTracker()
 
 app = Flask(__name__)
 
@@ -119,6 +118,30 @@ def fetchC(busID):
         return response
     return jsonify({})
 
+
+
+class BusTracker(object):
+    def __init__(self, interval=30):
+        self.interval = interval
+
+        thread = threading.Thread(target=self.run, args=())
+        thread.daemon = True
+        thread.start()
+    def run(self):
+        while True:
+            for a in customBus:
+                with open(os.getcwd() + "/trackBus/" + a["vehicle"] + ".json", "w") as f:
+                    b = RequestBusPosition( a["vehicle"][2] )
+                    jsonTime = json.load(f)
+                    jsonData = {}
+                    jsonData["T"] = a
+                    if b:
+                        jsonData["N"] = b
+
+                    jsonTime[datetime.datetime.now()] = jsonData
+
+                    f.write(json.dumps(jsonTime))
+            time.sleep(self.interval)
 
 if __name__ == "__main__":
     app.debug = True
