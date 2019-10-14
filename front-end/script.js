@@ -36,9 +36,14 @@ function syncBusData(bool, noSort) {
 		success: function (json) {
 				busesJson = json;
 				if (bool === true) {
-					var image = document.getElementById("removeDiv")
 
-					image.parentNode.removeChild(image);
+                  var removeDivs = document.querySelectorAll("#removeDiv")
+                  for (let i = 0; i < removeDivs.length; i++) {
+                      let div = removeDivs.item(i);
+
+                      div.parentNode.removeChild(div)
+                  }
+
 
 					for (var key in json) {
 						var element = document.getElementById(key)
