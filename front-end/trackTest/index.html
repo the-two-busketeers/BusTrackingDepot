@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+      crossorigin=""
+    ></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <title>Track the Bus overtime</title>
+  </head>
+  <body>
+	<div id ="center">
+    	<h1 id="header2">Tracking the buses through time</h1>
+		<input id="busInput"></input>
+
+		<button onclick="calcBusTime()">Calculate Bus Time</button>
+
+		<input type="datetime-local" onchange="setStartTime(event)"></input>
+		<input type="datetime-local" onchange="setLastTime(event)"> </input>
+		<input type="range" min="0" max="1000" value="0" class="slider" id="myRange"  onchange="calcBusTime()">
+		<div id="start"></div>
+		<div id="last"> </div>
+		<div id = "middle"> </div>
+
+	</div>
+	<div id="busMap"></div>
+
+
+	<script src="map.js"></script>
+	<script src="script.js"></script>
+
+    </body>
+</html>

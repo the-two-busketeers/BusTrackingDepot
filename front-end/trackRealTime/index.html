@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+      crossorigin=""
+    ></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <title>Track the Bus overtime</title>
+  </head>
+  <body>
+	<div id ="center">
+    	<h1 id="header2">Tracking the buses through time</h1>
+		<input id="busInput"></input>
+
+		<button onclick="loadBus()">Track new Bus</button>
+
+	</div>
+	<div id="busMap"></div>
+
+
+	<script src="map.js"></script>
+	<script src="script.js"></script>
+
+    </body>
+</html>

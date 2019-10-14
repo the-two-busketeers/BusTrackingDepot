@@ -1,0 +1,28 @@
+#busMap {
+  height: 700px;
+}
+.busIcon {
+	border-top-left-radius: 50%;
+	border-top-right-radius: 0%;
+	border-bottom-right-radius: 50%;
+	border-bottom-left-radius: 50%;
+	border: 2px solid #73AD21;
+	background: #FFF;
+	box-shadow: 0px 0px 4px #000;
+}
+
+.busIcon2 {
+	border-top-left-radius: 50%;
+	border-top-right-radius: 0%;
+	border-bottom-right-radius: 50%;
+	border-bottom-left-radius: 50%;
+	border: 2px solid #AAAAAA;
+	background: #FFF;
+	box-shadow: 0px 0px 4px #000;
+}
+
+
+#center {
+	position: relative;
+	text-align: center;
+}

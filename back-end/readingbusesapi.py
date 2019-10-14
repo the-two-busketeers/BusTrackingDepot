@@ -131,3 +131,25 @@ class ReadingBusesAPI:
         #    return validBusStops
 
         return validBusStops if not len(validBusStops) < 1 else False
+
+
+def GetBusJson():
+    dict = {
+        "running" : [],
+        "notRunning" : [],
+        "oldService" : [],
+    }
+    time = datetime.datetime.now()
+
+    for files in os.listdir( os.getcwd() + "/buses"):
+        if files.endswith(".json"):
+            jsonFile = open(os.getcwd() + "/buses/" + files)
+            jsonData = json.load(jsonFile)
+            if jsonData["isRunning"] == "1":
+                dict["running"].append(jsonData)
+            else:
+                if (time - datetime.datetime.fromisoformat(jsonData["observed"])).days > 30:
+                    dict["oldService"].append(jsonData)
+                else:
+                    dict["notRunning"].append(jsonData)
+    return dict

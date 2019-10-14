@@ -10,6 +10,7 @@ import time
 
 # Our custom Module imports
 import readingbusesapi as busWrapper
+import busupdater as busUpdater
 import cords
 
 busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
@@ -18,100 +19,22 @@ readingDepot = {
     "longitude": -0.981368,
     "latitude":  51.459180,
 }
+customBus = {}
+
+
+
 
 # We create the BusUpdate class which we will run on another thread so
 #that it does not interacts with the flask server
-class BusUpdater(object):
 
-    def __init__(self, interval=30):
-
-        self.interval = interval
-
-        thread = threading.Thread(target=self.run, args=())
-        thread.daemon = True                            # Daemonize thread
-        thread.start()                                  # Start the execution
-
-    def run(self):
-        while True:
-            buses = {}
-            aBuses = busWrapper.Call("Buses", {})
-
-            for data in aBuses:
-                buses[data["vehicle"]] = data
-            for files in os.listdir( os.getcwd() + "/buses"):
-                if files.endswith(".json"):
-                    filename = os.getcwd() + "/buses/" + files
-                    jsonFile = open(filename, 'r')
-                    jsonData = json.load(jsonFile)
-
-                    vehicle = jsonData["vehicle"]
-                    if vehicle in buses:
-                        busData = buses[vehicle]
-                        if busData == None:
-                            continue
-                        if busData["service"] == "":
-                            if jsonData["service"] != "":
-                                jsonData["lastService"] = jsonData["service"]
-                        jsonData["service"] = busData["service"]
-                        jsonData["observed"] = busData["observed"]
-                        jsonData["isRunning"] = "1"
-                        jsonData["latitude"] = busData["latitude"]
-                        jsonData["longitude"] = busData["longitude"]
-                        jsonData["distance"] = cords.LatLongToDistance(readingDepot["latitude"], readingDepot["longitude"], float(busData["latitude"]), float(busData["longitude"]))
-                        buses[vehicle] = None
-                    else:
-                        jsonData["isRunning"] = "0"
-                        buses[vehicle] = None
-
-                    jsonFile.close()
-                    jsonFile = open(filename, "w")
-                    jsonFile.write(json.dumps(jsonData))
-                    jsonFile.close()
-            for da in buses:
-                data = buses[da]
-                if data != None:
-                    jsonData = {}
-                    jsonData["observed"] = data["observed"]
-                    jsonData["vehicle"] = data["vehicle"]
-                    jsonData["isRunning"] = "1"
-                    jsonData["service"] = data["service"]
-                    jsonData["returnTime"] = "2019-08-22 19:46:13"
-                    jsonData["latitude"] = busData["latitude"]
-                    jsonData["longitude"] = busData["longitude"]
-                    jsonData["distance"] = cords.LatLongToDistance(readingDepot["latitude"], readingDepot["latitude"], float(busData["latitude"]), float(busData["longitude"]))
-
-                    with open(os.getcwd() + "/buses/" + data["vehicle"] + ".json", 'w') as f:
-                        f.write(json.dumps(jsonData))
-            time.sleep(self.interval)
-
-example = BusUpdater()
+example = busUpdater.BusUpdater()
+busTracker = busUpdater.BusTracker()
 
 app = Flask(__name__)
 
-def GetBusJson():
-    dict = {
-        "running" : [],
-        "notRunning" : [],
-        "oldService" : [],
-    }
-    time = datetime.datetime.now()
-
-    for files in os.listdir( os.getcwd() + "/buses"):
-        if files.endswith(".json"):
-            jsonFile = open(os.getcwd() + "/buses/" + files)
-            jsonData = json.load(jsonFile)
-            if jsonData["isRunning"] == "1":
-                dict["running"].append(jsonData)
-            else:
-                if (time - datetime.datetime.fromisoformat(jsonData["observed"])).days > 30:
-                    dict["oldService"].append(jsonData)
-                else:
-                    dict["notRunning"].append(jsonData)
-    return dict
-
 @app.route("/init", methods=["GET"])
 def init():
-    dict  = GetBusJson()
+    dict  = busWrapper.GetBusJson()
     response = jsonify(dict)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
@@ -154,7 +77,6 @@ def getAllBus():
         for a in Dict:
             f.write(a + ",\n")
 
-customBus = {}
 @app.route('/addBus', methods=["POST"])
 def addBus():
     form = request.get_json()
@@ -165,7 +87,7 @@ def addBus():
     dict["latitude"] = form["latitude"]
     dict["longitude"] = form["longitude"]
     dict["customBus"] = "1"
-    dict["observed"] = datetime.date.today()
+    dict["observed"] = datetime.datetime.now()
     customBus[form["vehicle"]] = dict
     return ""
 
@@ -181,6 +103,21 @@ def fetchBus(busID):
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     return jsonify({})
+
+@app.route("/fetchC/<busID>")
+def fetchC(busID):
+    if ("T" + busID) in customBus:
+        a = customBus["T" + busID]
+        b = RequestBusPosition( busID ):
+        jsonData = {}
+        jsonData["T"] = a
+        if b:
+            jsonData["N"] = b
+        response = jsonify(jsonData)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    return jsonify({})
+
 
 if __name__ == "__main__":
     app.debug = True
