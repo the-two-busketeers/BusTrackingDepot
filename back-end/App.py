@@ -59,7 +59,7 @@ app = Flask(__name__)
 
 @app.route("/init", methods=["GET"])
 def init():
-    dict  = busWrapper.GetBusJson()
+    dict  = bus_Wrapper.GetBusJson()
     response = jsonify(dict)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
