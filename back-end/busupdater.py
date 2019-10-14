@@ -1,6 +1,9 @@
 import threading
 import time
 
+import readingbusesapi as bus_Wrapper
+busWrapper = bus_Wrapper.ReadingBusesAPI("OHYrhd9WoJ")
+
 class BusUpdater(object):
 
     def __init__(self, interval=30):

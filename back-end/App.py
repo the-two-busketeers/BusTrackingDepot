@@ -34,11 +34,11 @@ class BusTracker(object):
 
 
 # Our custom Module imports
-import readingbusesapi as busWrapper
+import readingbusesapi as bus_Wrapper
 import busupdater as busUpdater
 import cords
 
-busWrapper = busWrapper.ReadingBusesAPI("OHYrhd9WoJ")
+busWrapper = bus_Wrapper.ReadingBusesAPI("OHYrhd9WoJ")
 
 readingDepot = {
     "longitude": -0.981368,
