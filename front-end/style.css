@@ -75,7 +75,6 @@ body {
     font-size: x-large;
     font-weight: bold;
     text-align: center;
-    /* border: 1px black solid; */
     border-radius: 15px 15px 0px 0px;
     box-shadow: 5px 5px 5px #00000077;
 }
@@ -97,7 +96,7 @@ body {
     overflow-y: auto;
     height: 70vh;
     border-radius: 0px 0px 5px 5px;
-    box-shadow: 5px 5px 5px #00000077
+    box-shadow: 5px 5px 5px #00000077;
 }
 
 #sticky {
