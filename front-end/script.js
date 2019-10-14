@@ -271,8 +271,8 @@ searchBox.addEventListener("click", function(e) {
 
 var grid_container = document.getElementsByClassName("grid-container")[0]
 
-if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-  $("body").attr("style", "background-size: contain; background-repeat: repeat-y; height: 100vh; overflow-y: scroll; overflow-x: hidden")
+if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  $("body").attr("style", "background-size: contain; background-repeat: repeat-y; height: 100%; width: 100%; overflow-y: scroll; overflow-x: hidden")
           $(".grid-container").attr("style", "display: block; width: 50vw; transform: translateX(24vw)")
   var headers = $(".grid-container #header");
   for (let i = 0; i < headers.length; i++) {
