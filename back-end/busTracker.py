@@ -1,4 +1,5 @@
 import threading
+import time
 
 class BusTracker(object):
     def __init__(self, service, interval=30):
@@ -10,7 +11,7 @@ class BusTracker(object):
     def run(self):
         while True:
             for a in customBus:
-                while open(os.getcwd() + "/trackBus/" + a["vehicle"] + ".json", "wr") as f:
+                with open(os.getcwd() + "/trackBus/" + a["vehicle"] + ".json", "w") as f:
                     b = RequestBusPosition( a["vehicle"][2] )
                     jsonTime = json.load(f)
                     jsonData = {}
@@ -21,3 +22,4 @@ class BusTracker(object):
                     jsonTime[datetime.datetime.now()] = jsonData
 
                     f.write(json.dumps(jsonTime))
+            time.sleep(self.interval)
