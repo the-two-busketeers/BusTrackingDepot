@@ -271,7 +271,7 @@ searchBox.addEventListener("click", function(e) {
 
 var grid_container = document.getElementsByClassName("grid-container")[0]
 
-          if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     $(".mobile-load").attr("style", "padding-right: 10%; display:;");
     $(".desktop-load").attr("style", "padding-top: 15%; display: none");
     $("body").attr("style", "background-size: contain; background-repeat: repeat-y; height: 100%; width: 100%; overflow-y: scroll; overflow-x: hidden")
