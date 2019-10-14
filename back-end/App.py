@@ -109,7 +109,7 @@ def fetchBus(busID):
 def fetchC(busID):
     if ("T" + busID) in customBus:
         a = customBus["T" + busID]
-        b = RequestBusPosition( busID ):
+        b = RequestBusPosition( busID )
         jsonData = {}
         jsonData["T"] = a
         if b:
