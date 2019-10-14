@@ -268,3 +268,7 @@ search.addEventListener("keyup", function(e) {
 searchBox.addEventListener("click", function(e) {
 	busSearch(search.value, searchBox.options[searchBox.selectedIndex].value);
 } )
+
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  alert("Hello")
+}
