@@ -12,6 +12,7 @@ button::before {
 }
 
 button {
+  color: black;
   font-size: .8em;
   font-weight: bold;
   position: absolute;

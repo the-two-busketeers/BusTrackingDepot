@@ -35,6 +35,7 @@ body {
 }
 
 #search-bar button, #search-bar select, #search-bar input, .panel button {
+  color: black;
   font-size: .8em;
   font-weight: bold;
   background-color: #ddd;
@@ -143,6 +144,7 @@ body {
     outline: none;
     font-size: 18px;
     transition: 0.4s;
+    margin: 0;
 }
 
 .accordion:hover {
