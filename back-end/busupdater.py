@@ -1,12 +1,18 @@
 import threading
 import time
 
+import cords
 import datetime
 import os
 import json
 
 import readingbusesapi as bus_Wrapper
 busWrapper = bus_Wrapper.ReadingBusesAPI("OHYrhd9WoJ")
+
+readingDepot = {
+    "longitude": -0.981368,
+    "latitude":  51.459180,
+}
 
 class BusUpdater(object):
 
