@@ -90,6 +90,10 @@ def serve_image(image):
 def serve_javascript(js_file):
     return send_from_directory(js_file)
 
+@app.route("/favicon.ico")
+def return_favicon():
+  return send_from_directory(os.path.join(app.root_path, "static"), "favicon.ico", mimetype='image/vnd.microsoft.com')
+
 @app.route("/getAllBus")
 def getAllBus():
     Dict = []
