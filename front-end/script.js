@@ -183,15 +183,13 @@ var sorting = {
 		// }
 		for (let i = 0; i < busLists.length; i++) {
 			let busList = Array.prototype.slice.call(busLists[i].children).sort(function(a, b) {
-				a = a.children[1].innerText.split(" ")[1].split("\n")[0].replace(/[A-Za-z]/g, "")
+				if (a == "" || a == "asd") a = "0";
+				a = parseInt(a.children[1].innerText.split(" ")[1].split("\n")[0].replace(/[A-Za-z]/g, ""));
 
-				if (a == "" || a == "asd") a = "0"
+        if (b == "" || b == "asd") b = "0"
+				b = parseInt(b.children[1].innerText.split(" ")[1].split("\n")[0].replace(/[A-Za-z]/g, ""))
 
-				b = b.children[1].innerText.split(" ")[1].split("\n")[0].replace(/[A-Za-z]/g, "")
-
-				if (b == "" || b == "asd") b = "0"
-
-				return a.localeCompare(b)
+				return a > b;
 			})
 
 			for (let j = 0; j < busList.length; j++) {
@@ -212,10 +210,10 @@ var sorting = {
 		// }
 		for (let i = 0; i < busLists.length; i++) {
 			let busList = Array.prototype.slice.call(busLists[i].children).sort(function(a, b) {
-				a = parseInt(a.textContent.replace(/[A-Za-z:]/g, "").split(" ")[0])
-				b = parseInt(b.textContent.replace(/[A-Za-z:]/g, "").split(" ")[0])
+				a = parseInt(a.textContent.replace(/[A-Za-z:]/g, "").split(" ")[0]);
+				b = parseInt(b.textContent.replace(/[A-Za-z:]/g, "").split(" ")[0]);
 
-				return a - b
+				return a > b;
 			})
 
 			for (let j = 0; j < busList.length; j++) {
