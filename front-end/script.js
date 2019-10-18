@@ -262,7 +262,7 @@ function busSort(value) {
 	}
 }
 
-setInterval(syncBusData, 1000 * 30);
+setInterval(syncBusData, 1000 * 30, false, sortType);
 syncBusData(true, true);
 
 // add selecting from the service
