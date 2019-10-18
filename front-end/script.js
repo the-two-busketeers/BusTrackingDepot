@@ -101,7 +101,13 @@ function SetBusData(acc, panel, json) {
 	panel.innerHTML = "<br>Service: " + json.service + "<br>" + "Last Recorded Service: " + ( (json.lastService !== "undefined" && json.lastService) || "");
 	panel.innerHTML = panel.innerHTML + "<br>Last Seen: " + json.observed
 	if (json["isRunning"] === "1") {
-		panel.innerHTML = panel.innerHTML + "<br>Distance: " + json.distance[0] + " meters"
+	  var distance = parseInt(json.distance[0]);
+	  if (distance >= 1000) {
+	    panel.innerHTML = panel.innerHTML + "<br>Distance: " + distance/1000 + "km";
+	  }
+	  else {
+	    panel.innerHTML = panel.innerHTML + "<br>Distance: " + distance + "m";
+	  }
 		panel.innerHTML = panel.innerHTML + "<br><br>"
 		if (json.distance[0] <= 200) {
 			acc.innerHTML = acc.innerHTML + " Leaving/Entering"
