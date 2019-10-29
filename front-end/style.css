@@ -44,7 +44,12 @@ body {
   margin: 1px;
   /* border: 2px #ccc solid; */
   border: none;
-  box-shadow: 1px 1px 2px #000000
+  box-shadow: 1px 1px 2px #000000;
+  transition: 2s;
+}
+
+#search-bar button:hover {
+    cursor: pointer;
 }
 
 /* #search-bar select {
@@ -68,6 +73,7 @@ body {
 .grid-element {
     padding: 1px;
     text-align: center;
+    /*padding-bottom: 10px;*/
 }
 
 .grid-element #header {
@@ -171,4 +177,14 @@ body {
     font-family: sans-serif;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+@media screen and (max-width: 700px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 3fr;
+        grid-template-rows: 1fr;
+        grid-gap: 1em;
+        padding: 50px;
+    }
 }

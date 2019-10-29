@@ -280,26 +280,26 @@ searchBox.addEventListener("click", function(e) {
 
 var grid_container = document.getElementsByClassName("grid-container")[0]
 
-if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    $(".mobile-load").attr("style", "padding-right: 10%; display:;");
-    $(".desktop-load").attr("style", "padding-top: 15%; display: none");
-    $("body").attr("style", "background-repeat: repeat-y; height: 100%; width: 100%; overflow-y: hidden; overflow-x: hidden")
-    $(".grid-container").attr("style", "display: block; width: 50vw; transform: translateX(24vw)")
-    var headers = $(".grid-container #header");
-    for (let i = 0; i < headers.length; i++) {
-    $(".grid-container .buslist").attr("style", "display: none")
-    headers[i].setAttribute("style", "border-bottom-left-radius: 15px; border-bottom-right-radius: 15px")
-    headers[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display == ""){
-            panel.setAttribute("style", "display: none")
-            headers[i].setAttribute("style", "border-bottom-left-radius: 15px; border-bottom-right-radius: 15px")
-          } else {
-            panel.setAttribute("style", "display: ; height: 50vh; max-height: 50vh;")
-            headers[i].setAttribute("style", "border-bottom-left-radius: 0; border-bottom-right-radius: 0")
-        }
-    });
-  }
-}
+//if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+//    $(".mobile-load").attr("style", "padding-right: 10%; display:;");
+//    $(".desktop-load").attr("style", "padding-top: 15%; display: none");
+//    $("body").attr("style", "background-repeat: repeat-y; height: 100%; width: 100%; overflow-y: hidden; overflow-x: hidden")
+//    $(".grid-container").attr("style", "display: block; width: 50vw; transform: translateX(24vw)")
+//    var headers = $(".grid-container #header");
+//    for (let i = 0; i < headers.length; i++) {
+//    $(".grid-container .buslist").attr("style", "display: none")
+//    headers[i].setAttribute("style", "border-bottom-left-radius: 15px; border-bottom-right-radius: 15px")
+//    headers[i].addEventListener("click", function() {
+//        this.classList.toggle("active");
+//        var panel = this.nextElementSibling;
+//        if (panel.style.display == ""){
+//            panel.setAttribute("style", "display: none")
+//            headers[i].setAttribute("style", "border-bottom-left-radius: 15px; border-bottom-right-radius: 15px")
+//          } else {
+//            panel.setAttribute("style", "display: ; height: 50vh; max-height: 50vh;")
+//            headers[i].setAttribute("style", "border-bottom-left-radius: 0; border-bottom-right-radius: 0")
+//        }
+//    });
+//  }
+//}
 
